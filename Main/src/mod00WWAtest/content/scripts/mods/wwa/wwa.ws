@@ -4,6 +4,7 @@
 /****************************************************************************/
 
 import function ItemHasTag( itemId : SItemUniqueId, tag : name ) : bool;
+import function ShowNotification(messageText : string, optional duration : float) : void;
 
 class WhiteWolfAdventure extends CActor
 {	
@@ -464,12 +465,103 @@ class WhiteWolfAdventure extends CActor
 		return modifier;
 	}
 	
+	public function getDurabilityReductionFromArmor(armor :float, reductionPercentage :float) : bool
+	{
+		var isArmored : bool;
+		isArmored = false;
+		if (armor + reductionPercentage > 0)
+		{
+			isArmored=true;
+		}
+		return isArmored;
+		
+	}
+	
+	public function durabilityLoseChance(item : SItemUniqueId, isArmored : bool) : int
+	{
+		var loseChance : int;
+		var witcher : W3PlayerWitcher;
+		
+		witcher = GetWitcherPlayer();
+		
+		loseChance = 0;
+		
+		if (witcher.inv.IsItemWeapon(item))
+		{
+			if (witcher.inv.ItemHasTag(item,'PlayerSilverWeapon'))
+			{
+				if (isArmored)
+				{
+					loseChance+=70;
+				}
+				else
+				{
+					loseChance+=20;
+				}
+			}
+			else
+			{
+				if (isArmored)
+				{
+					loseChance+=20;
+				}
+			}
+		}
+		
+		return loseChance ;
+		
+	}
+	
 	public final function wwaLogging(message : string) //DEBUG
 	{
 		var log:W3GameLog;
+		
 		log=new W3GameLog in this;
 		
 		log.AddMessage(message);
 	}
 	
+	public function DissolveAchemyItem(item : SItemUniqueId) : array<SItemUniqueId>
+	{
+		var witcher : W3PlayerWitcher;
+		var itemsToUpdate		: array<SItemUniqueId>;
+		
+		witcher = GetWitcherPlayer();
+		
+		itemsToUpdate=DissolveAlchemyItem(item);
+		wwaLogging("removed Item");
+		return itemsToUpdate;
+	}
+	
+	public function DissolveAlchemyItem( id : SItemUniqueId) : array<SItemUniqueId>
+	{
+		var itemsAdded : array<SItemUniqueId>;
+		var currentAdded : array<SItemUniqueId>;
+		var witcher : W3PlayerWitcher;
+		var itemsToUpdate		: array<SItemUniqueId>;
+	
+		var parts : array<SItemParts>;
+		var i : int;
+		var j : int;
+		
+		witcher = GetWitcherPlayer();
+		
+		parts = witcher.inv.GetItemRecyclingParts( id );
+		
+		for ( i = 0; i < parts.Size(); i += 1 )
+		{
+			currentAdded = witcher.inv.AddAnItem( parts[i].itemName, parts[i].quantity );
+			if (currentAdded.Size()>0)
+			{
+				for (j=0; j<currentAdded.Size() ; j+=1)
+				{
+					itemsToUpdate.PushBack(currentAdded[j]);
+				}
+			}
+		}
+		theSound.SoundEvent("gui_alchemy_brew");
+		witcher.inv.RemoveItem(id);
+		return itemsToUpdate;
+	}
+		
 }

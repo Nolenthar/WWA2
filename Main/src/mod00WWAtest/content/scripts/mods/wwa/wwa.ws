@@ -3,7 +3,7 @@
 /** Author : Nolenthar
 /****************************************************************************/
 
-import function ItemHasTag( itemId : SItemUniqueId, tag : name ) : bool;
+//import function ItemHasTag( itemId : SItemUniqueId, tag : name ) : bool;
 import function ShowNotification(messageText : string, optional duration : float) : void;
 
 class WhiteWolfAdventure extends CActor
@@ -562,6 +562,46 @@ class WhiteWolfAdventure extends CActor
 		theSound.SoundEvent("gui_alchemy_brew");
 		witcher.inv.RemoveItem(id);
 		return itemsToUpdate;
+	}
+	
+	public function wwaToolTipComponentExtra (item : SItemUniqueId) : string
+	{
+		var finalString : string;
+		var witcher : W3PlayerWitcher;
+		var weaponDurability : float;
+		var parts : array<SItemParts>;
+		var i : int;
+		
+		witcher=GetWitcherPlayer();
+		if (witcher.inv.ItemHasTag(item,'wwaAlchemyBaseIngredient'))
+		{
+			parts = witcher.inv.GetItemRecyclingParts( item );
+			for ( i = 0; i < parts.Size(); i += 1 )
+			{
+				if (i==0)
+				{
+					finalString="<br><font color=\"#ff9804\">"+GetLocStringByKey("wwa_produce")+" "+parts[i].itemName;
+				}
+				else if (i >0 && i < (parts.Size() -1))
+				{
+					finalString=finalString+", "+parts[i].itemName;
+				}
+				else
+				{
+					finalString=finalString+" & "+parts[i].itemName;
+				}
+			}
+		}
+		else if (witcher.inv.ItemHasTag(item,'PlayerSilverWeapon') || witcher.inv.ItemHasTag(item,'PlayerSteelWeapon'))
+		{
+			weaponDurability=witcher.inv.GetItemMaxDurability(item);
+			if (weaponDurability > 60)
+				finalString="<br>Solid Sword";
+			else
+				finalString="<br>Weak Sword";
+		}
+			
+		return finalString;
 	}
 		
 }

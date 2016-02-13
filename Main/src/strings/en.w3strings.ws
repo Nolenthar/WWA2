@@ -8,9 +8,11 @@ function _test_verifyW3strings() : int {
 
     // test by id
     if (!assertTrue(GetLocStringById(2117688000) == "Dissolve", "w3string.byId: 2117688000")) failed += 1;
+    if (!assertTrue(GetLocStringById(2117688001) == "Produces", "w3string.byId: 2117688001")) failed += 1;
 
     // test by key
     if (!assertTrue(GetLocStringByKey("panel_button_inventory_wwaDissolve") == "Dissolve", "w3string.byKey: panel_button_inventory_wwaDissolve")) failed += 1;
+    if (!assertTrue(GetLocStringByKey("wwa_produce") == "Produces", "w3string.byKey: wwa_produce")) failed += 1;
 
     // return number of failed
     return failed;

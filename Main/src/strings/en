@@ -1,15 +1,23 @@
-;meta[language=en]
-; id      |key(hex)|key(str)| text
-2117688000||panel_button_inventory_wwaDissolve|Dissolve
-2117688001||wwa_produce|Produces
-2117688002||wwa_item_weakSword|Weak
-2117688003||wwa_item_standardSword|Standard
-2117688004||wwa_item_strongSword|Strong
-2117688005||wwa_item_solidSword|Solid
-2117688006||wwa_item_nUnbreakableSword|Nearly Unbreakable
-2117688007||wwa_item_pBalancedSword|Perfectly Balanced.
-2117688008||wwa_item_wBalancedSword|Well Balanced.
-2117688009||wwa_item_pBalancedSword|Perfectly Balanced.
-2117688010||wwa_item_dBalancedSword|Decently Balanced.
-2117688011||wwa_item_poBalancedSword|Poorly Balanced.
-2117688012||wwa_item_bBalancedSword|Badly Balanced.
+;meta[language=en]				
+; id      	key(hex)	key(str)	 text en	text fr
+2117688000		panel_button_inventory_wwaDissolve	Dissolve	Dissoudre
+2117688001		wwa_produce	Produces	Produit
+2117688002		wwa_item_weakSword	Weak	Faible
+2117688003		wwa_item_standardSword	Vulnerable	Vulnerable
+2117688004		wwa_item_strongSword	Strong	Resistant
+2117688005		wwa_item_solidSword	Solid	Solide
+2117688006		wwa_item_nUnbreakableSword	Nearly Unbreakable	Presque Incassable
+2117688007		wwa_item_pBalancedSword	Perfectly Balanced.	Parfaitement équilibrée
+2117688008		wwa_item_wBalancedSword	Well Balanced.	Bien équilibrée
+2117688009		wwa_item_dBalancedSword	Decently Balanced.	Correctement équilibrée
+2117688010		wwa_item_poBalancedSword	Poorly Balanced.	Peu équilibrée
+2117688011		wwa_item_bBalancedSword	Badly Balanced.	Mal équilibrée
+2117688012		wwa_item_vheavySword	Very Heavy	Très lourde
+2117688013		wwa_item_heavySword	Heavy	Lourde
+2117688014		wwa_item_averageSword	Quite heavy	Assez lourde
+2117688015		wwa_item_lightSword	Quite Light	Assez légère
+2117688016		wwa_item_featherSword	Very light	Très légère
+2117688017		wwa_bladeOfViroleda	Blade of Viroleda	Lame de Viroleda
+2117688018				
+2117688019				
+2117688020				

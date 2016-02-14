@@ -260,18 +260,16 @@ class WhiteWolfAdventure extends CActor
 		var itemWeight	: SAbilityAttributeValue;
 		var weaponWeightRatio : float;
 		
-		witcher = GetWitcherPlayer();
-		if (witcher.IsWeaponHeld( 'steelsword'))
-		{
-			item=witcher.GetEquippedSword(true);
-		}
-		else if (witcher.IsWeaponHeld( 'silversword'))
-		{
-			item=witcher.GetEquippedSword(false);
-		}
+		findPlayerWeaponHeld(item);
 		
+		witcher = GetWitcherPlayer();
+		if (!(witcher.inv.ItemHasTag(item,'wwaWeapon')))
+		{
+			return 1;
+		}
 		itemWeight=witcher.inv.GetItemAttributeValue(item, 'weight');
 		weight=itemWeight.valueBase;
+		
 		if (weight <= 2.5)
 		{
 			weaponWeightRatio = 1;
@@ -292,37 +290,82 @@ class WhiteWolfAdventure extends CActor
 		{
 			weaponWeightRatio = 2;
 		}
+		wwaLogging("weightRatio :"+weaponWeightRatio);
 		return weaponWeightRatio;
 	}
 	
-	public function weaponWeightCriticalCheck() : float
+	public function findPlayerWeaponHeld(out weapon : SItemUniqueId)
 	{
-		var weaponWeightCheck : float;
-		var finalCriticalMalus : float;
+		var witcher		: W3PlayerWitcher;
 		
-		finalCriticalMalus = 0;
+		witcher = GetWitcherPlayer();
 		
-		weaponWeightCheck = calculateWeaponWeightRatio();
-		switch (weaponWeightCheck)
+		if (witcher.IsWeaponHeld( 'steelsword'))
 		{
-			case 1 :
-				return finalCriticalMalus;
-			case 1.25 :
-				finalCriticalMalus -= 0.05;
+			weapon=witcher.GetEquippedSword(true);
+		}
+		else if (witcher.IsWeaponHeld( 'silversword'))
+		{
+			weapon=witcher.GetEquippedSword(false);
+		}
+	}
+	
+	public function getWeaponBalance() : float
+	{
+		var witcher		: W3PlayerWitcher; 
+		var balance		: float;
+		var item 		: SItemUniqueId;
+		var itemBalance	: SAbilityAttributeValue;
+		
+		findPlayerWeaponHeld(item);
+		witcher = GetWitcherPlayer();
+		itemBalance = witcher.inv.GetItemAttributeValue(item, 'balance' ) ;
+		balance=itemBalance.valueBase;
+		return balance;		
+	}
+	
+	public function getItemAttributeValue(item : SItemUniqueId, attribute : name) : float
+	{
+		var witcher		: W3PlayerWitcher; 
+		var Attribute : SAbilityAttributeValue;
+		var outValue : float;
+		
+		witcher=GetWitcherPlayer();
+		
+		Attribute=witcher.inv.GetItemAttributeValue(item, attribute ) ;
+		outValue=Attribute.valueBase;
+		
+		return outValue;
+	}	
+	
+	public function weaponBalanceCriticalCheck() : float
+	{
+		var weaponBalance : int;
+		var finalCriticalBonus : float;
+		
+		finalCriticalBonus = 0;
+		
+		weaponBalance = RoundMath(getWeaponBalance());
+		switch (weaponBalance)
+		{
+			case 5 :
+				finalCriticalBonus += 0.10 ;
 				break;
-			case 1.5 :
-				finalCriticalMalus -= 0.15 ;
+			case 4 :
 				break;
-			case 1.75 :
-				finalCriticalMalus -= 0.25 ;
+			case 3 :
+				finalCriticalBonus -= 0.05 ;
 				break;
 			case 2 :
-				finalCriticalMalus -= 0.5 ;
+				finalCriticalBonus -= 0.15 ;
+				break;
+			case 1 :
+				finalCriticalBonus -= 0.25 ;
 				break;
 			default :
 				break;
 		}
-		return finalCriticalMalus;
+		return finalCriticalBonus;
 	}
 	
 	public function attackSpeedFromWeapon() : float
@@ -521,18 +564,6 @@ class WhiteWolfAdventure extends CActor
 		log.AddMessage(message);
 	}
 	
-	public function DissolveAchemyItem(item : SItemUniqueId) : array<SItemUniqueId>
-	{
-		var witcher : W3PlayerWitcher;
-		var itemsToUpdate		: array<SItemUniqueId>;
-		
-		witcher = GetWitcherPlayer();
-		
-		itemsToUpdate=DissolveAlchemyItem(item);
-		wwaLogging("removed Item");
-		return itemsToUpdate;
-	}
-	
 	public function DissolveAlchemyItem( id : SItemUniqueId) : array<SItemUniqueId>
 	{
 		var itemsAdded : array<SItemUniqueId>;
@@ -570,6 +601,7 @@ class WhiteWolfAdventure extends CActor
 		var witcher : W3PlayerWitcher;
 		var weaponDurability : float;
 		var parts : array<SItemParts>;
+		var weaponBalance : int;
 		var i : int;
 		
 		witcher=GetWitcherPlayer();
@@ -580,7 +612,7 @@ class WhiteWolfAdventure extends CActor
 			{
 				if (i==0)
 				{
-					finalString="<br><font color=\"#ff9804\">"+GetLocStringByKey("wwa_produce")+" "+parts[i].itemName;
+					finalString="<br><font color=\"#ff0008\">"+GetLocStringByKey("wwa_produce")+" "+parts[i].itemName;
 				}
 				else if (i >0 && i < (parts.Size() -1))
 				{
@@ -588,17 +620,47 @@ class WhiteWolfAdventure extends CActor
 				}
 				else
 				{
-					finalString=finalString+" & "+parts[i].itemName;
+					finalString=finalString+" & "+parts[i].itemName+"</font>";
 				}
 			}
 		}
 		else if (witcher.inv.ItemHasTag(item,'PlayerSilverWeapon') || witcher.inv.ItemHasTag(item,'PlayerSteelWeapon'))
 		{
 			weaponDurability=witcher.inv.GetItemMaxDurability(item);
-			if (weaponDurability > 60)
-				finalString="<br>Solid Sword";
+			weaponBalance=RoundMath(getItemAttributeValue(item,'balance'));
+			if (weaponDurability <= 10)
+				finalString+="<br><font color=\"#ff0008\">"+GetLocStringByKey("wwa_item_weakSword");
+			else if (weaponDurability <=50)
+				finalString+="<br><font color=\"#cccccc\">"+GetLocStringByKey("wwa_item_standardSword");
+			else if (weaponDurability <=100)
+				finalString+="<br><font color=\"#00a200\">"+GetLocStringByKey("wwa_item_strongSword");
+			else if (weaponDurability <=200)
+				finalString+="<br><font color=\"#7f0077\">"+GetLocStringByKey("wwa_item_solidSword");
+			else if (weaponDurability >200)
+				finalString+="<br><font color=\"#fda700\">"+GetLocStringByKey("wwa_item_nUnbreakableSword");
 			else
-				finalString="<br>Weak Sword";
+				finalString+="<br><font color=\"#00a200\">"+GetLocStringByKey("wwa_item_strongSword");
+			switch(weaponBalance)
+			{
+				case 5 :
+					finalString+="</font>"+" & <font color=\"#fda700\">"+GetLocStringByKey("wwa_item_pBalancedSword")+"</font>";
+					break;
+				case 4 :
+					finalString+="</font>"+" & <font color=\"#7f0077\">"+GetLocStringByKey("wwa_item_wBalancedSword")+"</font>";
+					break;
+				case 3 :
+					finalString+="</font>"+" & <font color=\"#00a200\">"+GetLocStringByKey("wwa_item_dBalancedSword")+"</font>";
+					break;
+				case 2 :
+					finalString+="</font>"+" & <font color=\"#cccccc\">"+GetLocStringByKey("wwa_item_poBalancedSword")+"</font>";
+					break;
+				case 1 :
+					finalString+="</font>"+" & <font color=\"#ff0008\">"+GetLocStringByKey("wwa_item_bBalancedSword")+"</font>";
+					break;
+				default :
+					finalString+="</font>"+" & <font color=\"#fda700\">"+GetLocStringByKey("wwa_item_pBalancedSword")+"</font>";
+					break;
+			}
 		}
 			
 		return finalString;

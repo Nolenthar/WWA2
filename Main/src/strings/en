@@ -2,3 +2,14 @@
 ; id      |key(hex)|key(str)| text
 2117688000||panel_button_inventory_wwaDissolve|Dissolve
 2117688001||wwa_produce|Produces
+2117688002||wwa_item_weakSword|Weak
+2117688003||wwa_item_standardSword|Standard
+2117688004||wwa_item_strongSword|Strong
+2117688005||wwa_item_solidSword|Solid
+2117688006||wwa_item_nUnbreakableSword|Nearly Unbreakable
+2117688007||wwa_item_pBalancedSword|Perfectly Balanced.
+2117688008||wwa_item_wBalancedSword|Well Balanced.
+2117688009||wwa_item_pBalancedSword|Perfectly Balanced.
+2117688010||wwa_item_dBalancedSword|Decently Balanced.
+2117688011||wwa_item_poBalancedSword|Poorly Balanced.
+2117688012||wwa_item_bBalancedSword|Badly Balanced.

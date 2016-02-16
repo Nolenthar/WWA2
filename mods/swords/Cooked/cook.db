@@ -1,0 +1,80 @@
+{
+    "files": [
+        {
+            "path": "dlc\\dlc10\\data\\items\\weapons\\swords\\witcher_silver_swords\\model\\witcher_silver_wolf_sword_lvl1.fbx",
+            "level": 0,
+            "seed": 1,
+            "id": "DC8D8805-05A8A6EC-1B80771D-2F2DB742"
+        },
+        {
+            "path": "dlc\\dlc10\\data\\items\\weapons\\swords\\witcher_silver_swords\\model\\witcher_silver_wolf_sword_lvl1.w2mesh",
+            "level": 0,
+            "class": "CMesh",
+            "seed": 1,
+            "id": "8528AC7A-AD2E3579-BE83990B-A07034CE",
+            "diskSize": 3025
+        },
+        {
+            "path": "dlc\\dlc10\\data\\items\\weapons\\swords\\witcher_silver_swords\\model\\witcher_silver_wolf_sword_lvl1.xml",
+            "level": 0,
+            "seed": 1,
+            "id": "E46B563C-4912E02D-EF93E0AE-422C0111"
+        },
+        {
+            "path": "dlc\\dlc10\\data\\items\\weapons\\swords\\witcher_steel_swords\\model\\witcher_steel_wolf_sword_lvl1.fbx",
+            "level": 0,
+            "seed": 1,
+            "id": "6C4B78AE-B9441AB0-7A2A80A1-7ADDE74A"
+        },
+        {
+            "path": "dlc\\dlc10\\data\\items\\weapons\\swords\\witcher_steel_swords\\model\\witcher_steel_wolf_sword_lvl1.w2mesh",
+            "level": 0,
+            "class": "CMesh",
+            "seed": 1,
+            "id": "C0E76251-8C9B0F77-928DCF32-DE4E3D90",
+            "diskSize": 3800
+        },
+        {
+            "path": "dlc\\dlc10\\data\\items\\weapons\\swords\\witcher_steel_swords\\model\\witcher_steel_wolf_sword_lvl1.xml",
+            "level": 0,
+            "seed": 1,
+            "id": "B2092016-5072454D-026F063E-52B113AB"
+        },
+        {
+            "path": "items\\cutscenes\\witcher_silver_sword\\model\\silver_sword_d01.tga",
+            "level": 0,
+            "seed": 1,
+            "id": "A301D95D-B891DF21-7A86FD6F-78C8A384"
+        },
+        {
+            "path": "items\\cutscenes\\witcher_silver_sword\\model\\silver_sword_d01.xbm",
+            "level": 0,
+            "class": "CBitmapTexture",
+            "seed": 1,
+            "id": "EF9A54B1-E56B7DF0-6AEE09A3-745221A0",
+            "diskSize": 1390
+        },
+        {
+            "path": "items\\weapons\\swords\\steel_swords_unique\\model\\steel_unique_ardaenye.w2mesh",
+            "level": 0,
+            "class": "CMesh",
+            "seed": 1,
+            "id": "EE221E5D-386DA42D-75EBAC2B-F52A58BF",
+            "diskSize": 3800
+        },
+        {
+            "path": "items\\weapons\\swords\\witcher_steel_swords\\model\\sword_01__steel_d01.tga",
+            "level": 0,
+            "seed": 1,
+            "id": "18B6648D-2BC3AFFD-22F1EE69-1138FF0B"
+        },
+        {
+            "path": "items\\weapons\\swords\\witcher_steel_swords\\model\\sword_01__steel_d01.xbm",
+            "level": 0,
+            "class": "CBitmapTexture",
+            "seed": 1,
+            "id": "6D9A62B8-E23D05BC-BCCAAA2B-576D1D19",
+            "diskSize": 1390
+        }
+    ]
+}

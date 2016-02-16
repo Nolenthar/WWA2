@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<mesh>
+    <mesh_data autohideDistance="60.00" isTwoSided="false" useExtraStreams="true" mergeInGlobalShadowMesh="true" entityProxy="false">
+        <LODs>
+            <LOD_info distance="0.00" />
+        </LODs>
+    </mesh_data>
+    <materials>
+        <material name="Material0" local="true" base="characters\models\common\materials\swords\sword_rune_silver_regular.w2mi">
+            <param name="VarianceOffset" type="Float" value="1" />
+            <param name="VarianceColor" type="Color" value="128; 128; 128; 255" />
+            <param name="Normal" type="handle:ITexture" value="dlc\dlc10\data\items\weapons\swords\witcher_silver_swords\model\witcher_silver_wolf_sword_lvl2_n01.xbm" />
+            <param name="Diffuse" type="handle:ITexture" value="dlc\dlc10\data\items\weapons\swords\witcher_silver_swords\model\witcher_silver_wolf_sword_lvl2_d01.xbm" />
+            <param name="Translucency" type="Float" value="0" />
+            <param name="SpecularColor" type="Color" value="205; 222; 237; 255" />
+            <param name="RSpecScale" type="Float" value="0.9" />
+            <param name="RSpecBase" type="Float" value="-0.4" />
+        </material>
+        <material name="Material1" local="true" base="engine\materials\graphs\pbr_std.w2mg">
+            <param name="Normal" type="handle:ITexture" value="items\cutscenes\witcher_silver_sword\model\silver_sword_n01.xbm" />
+            <param name="Diffuse" type="handle:ITexture" value="items\cutscenes\witcher_silver_sword\model\silver_sword_d01.xbm" />
+            <param name="Translucency" type="Float" value="0" />
+            <param name="SpecularColor" type="Color" value="212; 212; 211; 255" />
+            <param name="RSpecScale" type="Float" value="0.85" />
+            <param name="RSpecBase" type="Float" value="-0.32" />
+        </material>
+    </materials>
+</mesh>

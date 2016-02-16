@@ -1,0 +1,4 @@
+Author: pMarK
+Mod: Absolute Camera
+version: 1.9 beta
+description: easily set up your preferred camera.
